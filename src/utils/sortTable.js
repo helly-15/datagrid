@@ -1,5 +1,8 @@
 
 export default function sortTable(indexOfColumn) {
+   Array.from (document.getElementsByClassName('arrow')).map((item)=>{
+      item.classList.toggle('invisible')
+   });
 
    const table = document.getElementsByClassName("table-wrapper")[0];
    let switching = true;
@@ -9,6 +12,7 @@ export default function sortTable(indexOfColumn) {
    let rows = document.getElementsByClassName('faker-row');
 
    while (switching){
+      console.log (dir)
       switching =false;
       let line =0;
       for (let i =0; i<rows.length-1;i+=1) {
@@ -26,6 +30,7 @@ export default function sortTable(indexOfColumn) {
          } else if (dir === "desc") {
             if (info1.innerHTML.toLowerCase() < info2.innerHTML.toLowerCase()) {
                shouldSwitch = true;
+               line = i;
                 break;
             }
          }
@@ -36,10 +41,12 @@ export default function sortTable(indexOfColumn) {
             switchcount ++;
          }
          else {
-            if (switchcount === 0 && dir === "asc") {
+            if ( switchcount ===0 && dir ==='asc'){
                dir = "desc";
                switching = true;
             }
+
+
          }
 
    }

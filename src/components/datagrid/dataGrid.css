@@ -6,4 +6,12 @@
   cursor: pointer;
 }
 
+.arrow {
+  padding: 2px 2px;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 /*# sourceMappingURL=dataGrid.css.map */
