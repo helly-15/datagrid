@@ -17,7 +17,7 @@ function tableWithData (rows, columns){
             "seller": <img alt ='avatar' src ={faker.internet.avatar()}/>,
             'name': faker.name.firstName(),
             'product name': faker.commerce.productName(),
-            'price': faker.commerce.price().slice(0,-3)+"$",
+            'price': faker.commerce.price().slice(0,-3)+'$',
             'address': faker.address.streetAddress()+' '+faker.address.city()+' '+faker.address.state(),
             'available from':faker.date.month(),
             'email':<a href ="" > {faker.internet.email()}</a>
@@ -33,7 +33,7 @@ function tableWithData (rows, columns){
 
 
 export default function Datagrid (props){
-
+    let toggled =[];
     const {numOfRows, numOfColumns} = props;
     return(
         <div className="container-fluid table-wrapper">
@@ -41,7 +41,20 @@ export default function Datagrid (props){
                 <div className="row header-row">
                     { namesOfColumns.map((name,index)=>(
                         <>
-                        <div className={classesOfColumns[index]} key={index+name} onClick = {()=>sortTable(index)}>
+                        <div className={classesOfColumns[index]} key={index+name} onClick = {(e)=>{
+                            if (toggled.length===0){
+                                e.target.classList.add('sortAim');
+                                toggled.push(e.target);
+                            }
+                            else if (e.target !==toggled[0])
+                                {
+                                toggled[0].classList.remove('sortAim');
+                                toggled[0]= e.target;
+                                e.target.classList.add('sortAim');
+                            }
+
+                            sortTable(index)
+                        }}>
                             <img src={arrowDown} className ='arrow invisible'/>
                             {name}
                             <img src={arrowUp} className = 'arrow '/>

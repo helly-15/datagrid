@@ -7,28 +7,37 @@ export default function sortTable(indexOfColumn) {
    const table = document.getElementsByClassName("table-wrapper")[0];
    let switching = true;
    let dir = "asc";
-   let shouldSwitch;
+   let shouldSwitch, compared1, compared2;
    let switchcount =0;
    let rows = document.getElementsByClassName('faker-row');
 
    while (switching){
-      console.log (dir)
       switching =false;
       let line =0;
       for (let i =0; i<rows.length-1;i+=1) {
          shouldSwitch = false;
          let info1 = rows[i].children[indexOfColumn];
          let info2 = rows[i + 1].children[indexOfColumn];
+         //console.log (info1.innerHTML.slice(-2))
+         if (parseInt(info1.innerHTML)){
+
+             compared1 = parseInt(info1.innerHTML);
+             compared2 = parseInt(info2.innerHTML);
+             //console.log(compared1);
+         }
+         else {
+             compared1 = info1.innerHTML.toLowerCase();
+             compared2 = info2.innerHTML.toLowerCase();
+         }
+
          if (dir === "asc") {
-            //console.log (info1.innerHTML.toLowerCase());
-            if (info1.innerHTML.toLowerCase() > info2.innerHTML.toLowerCase()) {
-               // console.log ('switch');
+            if (compared1 > compared2) {
                shouldSwitch = true;
                line = i;
                 break;
             }
          } else if (dir === "desc") {
-            if (info1.innerHTML.toLowerCase() < info2.innerHTML.toLowerCase()) {
+            if (compared1 < compared2) {
                shouldSwitch = true;
                line = i;
                 break;
