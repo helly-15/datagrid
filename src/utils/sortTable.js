@@ -1,10 +1,8 @@
 
 export default function sortTable(indexOfColumn) {
    Array.from (document.getElementsByClassName('arrow')).map((item)=>{
-      item.classList.toggle('invisible')
+    return  item.classList.toggle('invisible')
    });
-
-   const table = document.getElementsByClassName("table-wrapper")[0];
    let switching = true;
    let dir = "asc";
    let shouldSwitch, compared1, compared2;

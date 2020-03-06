@@ -20,13 +20,13 @@ function tableWithData (rows, columns){
             'price': faker.commerce.price().slice(0,-3)+'$',
             'address': faker.address.streetAddress()+' '+faker.address.city()+' '+faker.address.state(),
             'available from':faker.date.month(),
-            'email':<a href ="" > {faker.internet.email()}</a>
+            'email':<a href ="#" > {faker.internet.email()}</a>
         };
         for (let j=0; j<columns; j+=1){
-            children.push (<div className={classesOfColumns[j]} key ={i+j}> {dataInCells[namesOfColumns[j]]} </div>)
+            children.push (<td className={classesOfColumns[j]} key ={i+j}> {dataInCells[namesOfColumns[j]]} </td>)
         }
 
-        table.push (<div className='row faker-row' key ={i}> {children}</div> )
+        table.push (<tr className='row faker-row' key ={i}>{children}</tr> )
     }
     return table
 }
@@ -36,41 +36,45 @@ export default function Datagrid (props){
     let toggled =[];
     const {numOfRows, numOfColumns} = props;
     return(
-        <div className="container-fluid table-wrapper">
-            <>
-                <div className="row header-row">
-                    { namesOfColumns.map((name,index)=>(
-                        <>
-                        <div className={classesOfColumns[index]} key={index+name} onClick = {(e)=>{
-                            if (toggled.length===0){
-                                e.target.classList.add('sortAim');
-                                toggled.push(e.target);
-                            }
-                            else if (e.target !==toggled[0])
-                                {
-                                toggled[0].classList.remove('sortAim');
-                                toggled[0]= e.target;
-                                e.target.classList.add('sortAim');
-                            }
-
-                            sortTable(index)
-                        }}>
-                            <img src={arrowDown} className ='arrow invisible'/>
-                            {name}
-                            <img src={arrowUp} className = 'arrow '/>
-
-                        </div>
+        <div className='table-responsive'>
 
 
-                        </>
-                    ))}
-                </div>
-                {tableWithData(numOfRows,numOfColumns)}
-            </>
+        <table className="container-fluid table-wrapper table table-hover">
+            <thead>
+            <tr className="row header-row">
+                { namesOfColumns.map((name,index)=>(
+
+                    <th className={classesOfColumns[index]} key={index+name} onClick = {(e)=>{
+                        if (toggled.length===0){
+                            e.target.classList.add('sortAim');
+                            toggled.push(e.target);
+                        }
+                        else if (e.target !==toggled[0])
+                        {
+                            toggled[0].classList.remove('sortAim');
+                            toggled[0]= e.target;
+                            e.target.classList.add('sortAim');
+                        }
+
+                        sortTable(index)
+                    }}>
+                        <img src={arrowDown} alt ='<' className ='arrow invisible'/>
+                        {name}
+                        <img src={arrowUp} alt ='>' className = 'arrow '/>
+
+                    </th>
+                ))}
+            </tr>
+            </thead>
+               <tbody>
+                   {tableWithData(numOfRows,numOfColumns)}
+               </tbody>
 
 
-        </div>
 
+
+        </table>
+</div>
 
     )
 }
