@@ -80,7 +80,6 @@ export default class ColorSelect extends React.Component {
     };
     render() {
         const { selectedOption } = this.state;
-        console.log (this.state);
         return (
             <Select
                 closeMenuOnSelect={false}

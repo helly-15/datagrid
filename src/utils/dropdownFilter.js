@@ -1,5 +1,4 @@
 export default function dropDownFilter(stateOfComponent) {
-    //let dropdown= document.getElementsByClassName("checkbox")[0];
     let table = document.getElementsByClassName("table-wrapper")[0];
     let tr = table.getElementsByTagName("tr");
 
@@ -12,7 +11,6 @@ export default function dropDownFilter(stateOfComponent) {
             let counterOfmatches =0;
             stateOfComponent.map ((object)=>{
                 if (td.innerText===object.value) {
-                    //tr[i].style.display = "";
                     counterOfmatches++;
                 }
 

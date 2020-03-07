@@ -9,7 +9,6 @@ const namesOfColumns =['seller','name','product name', 'price', 'color','in stoc
 const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
 
 function tableWithData (rows, columns){
-
     let table =[];
     for (let i=0;i<rows;i+=1){
         let children =[];
