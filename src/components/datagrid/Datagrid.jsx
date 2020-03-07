@@ -5,7 +5,7 @@ import sortTable from "../../utils/sortTable";
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 
-const namesOfColumns =['seller','name','product name', 'price', 'address','in stock','email'];
+const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
 const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
 
 function tableWithData (rows, columns){
@@ -18,7 +18,7 @@ function tableWithData (rows, columns){
             'name': faker.name.firstName(),
             'product name': faker.commerce.productName(),
             'price': faker.commerce.price().slice(0,-3)+'$',
-            'address': faker.address.streetAddress()+' '+faker.address.city()+' '+faker.address.state(),
+            'color': faker.commerce.color(),
             'in stock':faker.random.boolean()?'yes':"no",
             'email':<a href ="#" > {faker.internet.email()}</a>
         };
