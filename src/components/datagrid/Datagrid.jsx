@@ -4,13 +4,14 @@ import faker from 'faker';
 import sortTable from "../../utils/sortTable";
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
-
+import { FixedSizeList as List } from 'react-window';
 
 const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
 const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
 
 function tableWithData (rows, columns){
     let table =[];
+    let Row;
     for (let i=0;i<rows;i+=1){
         let children =[];
         const dataInCells = {
@@ -27,8 +28,30 @@ function tableWithData (rows, columns){
         }
 
         table.push (<tr className='row faker-row' key ={i}>{children}</tr> )
+
     }
-    return table
+    Row = ({ data,index, style }) => {
+        const item = data[index];
+        return (
+            <div
+                style={style}
+            >
+                {item}
+            </div>
+        );
+    };
+    const Example = () => (
+        <List
+            height={500}
+            itemCount={table.length}
+            itemData = {table}
+            itemSize={150}
+            width={'100%'}
+        >
+            {Row}
+        </List>
+    );
+    return <Example/>
 }
 //TODO this variable should go to Redux state
 let arrClickedCells ;

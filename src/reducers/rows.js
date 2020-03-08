@@ -1,5 +1,5 @@
 const initialState = {
-    numberOfRows:10,
+    numberOfRows:100,
 }
 export function rowsReducer(state = initialState) {
     return state
