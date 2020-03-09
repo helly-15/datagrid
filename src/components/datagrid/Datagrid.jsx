@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './dataGrid.css';
 import faker from 'faker';
-import sortTable, {sortTableData} from "../../utils/sortTable";
+import {sortTableData2} from "../../utils/sortTable";
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 import { FixedSizeList as List } from 'react-window';
@@ -66,39 +66,39 @@ function tableWithData (rows, columns){
     );
     return <Example/>
 }
-//TODO this variable should go to Redux state
-let arrClickedCells ;
 
-function sortTableWrapper(indexOfColumn, indexOfPreviouslyClicked, dataGrid) {
+function sortTableWrapper(indexOfPreviouslyClicked, dir) {
     Array.from (document.getElementsByClassName('arrow')).map((item)=>{
         return  item.classList.toggle('invisible')
     });
-    sortTableData(indexOfColumn,indexOfPreviouslyClicked, tableDataVar, namesOfColumns);
+    if (indexOfPreviouslyClicked.length === 0) return;
+    sortTableData2(indexOfPreviouslyClicked, tableDataVar, namesOfColumns,dir)
 }
 
 export default function Datagrid (props){
     let toggled =[];
     let tableHasChanges = false;
+    const [ClickedCells, setClickedCells]= useState([]);
     const [TableData, setTableData] = useState(tableHasChanges);
+    const [Dir, setDir] = useState(true);
     const {numOfRows, numOfColumns} = props;
+    sortTableWrapper(ClickedCells,Dir);
     return(
         <div className='table-responsive'>
         <table className="container-fluid table-wrapper table table-hover">
             <thead>
             <tr className="row header-row">
                 { namesOfColumns.map((name,index)=>(
-
                     <th className={classesOfColumns[index]}
                         key={index+name}
                         onClick = {(e)=>{
-
                             if (!e.shiftKey) {
-                                arrClickedCells = index;
+                                setClickedCells([index]);
                                 Array.from(document.getElementsByClassName("sortAim")).map((element)=>{
                                     return element.classList.remove('sortAim');
                                 });
-                                if (toggled.length===0){
-
+                                if (toggled.length===0)
+                                {
                                     e.target.classList.add('sortAim');
                                     toggled.push(e.target);
                                 }
@@ -111,34 +111,35 @@ export default function Datagrid (props){
                                 else{
                                     toggled[0].classList.remove('sortAim');
                                     toggled=[];
-                                    arrClickedCells=false;
                                 }
-                                sortTableWrapper(index,0)
+                                // sortTableWrapper(index,ClickedCells,Dir);
+                                if (ClickedCells.includes(index)) {
+                                    setDir(!Dir);
+                                    console.log("index: " + index + ", dir: " + Dir + ", ClickedCells: " + ClickedCells);
+                                } else {
+                                    setDir(true);
+                                }
                                 setTableData(!TableData);
                             }
                             else{
-                                if (!arrClickedCells){
-                                    arrClickedCells=index;
-                                    sortTableWrapper(index,0)
+                                if (ClickedCells.length===0){
+                                    setClickedCells([index]);
+                                    setDir(!Dir);
                                     setTableData(!TableData);
                                 }
                                 else{
+                                    setClickedCells(ClickedCells.concat([index]));
                                     if(e.target.classList.contains('sortAim')){
                                         e.target.classList.remove('sortAim');
                                     }
                                     else e.target.classList.add('sortAim');
-                                    sortTableWrapper(index,arrClickedCells)
                                     setTableData(!TableData);
                                 }
-
-
                             }
-
                     }}>
                         <img src={arrowDown} alt ='<' className ='arrow invisible'/>
                         {name}
                         <img src={arrowUp} alt ='>' className = 'arrow '/>
-
                     </th>
                 ))}
             </tr>
@@ -148,6 +149,5 @@ export default function Datagrid (props){
                </tbody>
         </table>
 </div>
-
     )
 }
