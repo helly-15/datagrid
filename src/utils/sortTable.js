@@ -1,8 +1,6 @@
 
 export default function sortTable(indexOfColumn,indexOfPreviouslyClicked) {
-   Array.from (document.getElementsByClassName('arrow')).map((item)=>{
-    return  item.classList.toggle('invisible')
-   });
+
    let switching = true;
    let dir = "asc";
    let shouldSwitch, compared1, compared2, parentCompared1, parentCompared2;
@@ -83,4 +81,9 @@ export default function sortTable(indexOfColumn,indexOfPreviouslyClicked) {
          }
 
    }
+}
+
+export function sortTableData(indexOfColumn,indexOfPreviouslyClicked, tableData, namesOfColumns) {
+    const key = namesOfColumns[indexOfColumn];
+    tableData.sort((a, b) => a[key].toString().localeCompare(b[key].toString(), undefined, {numeric: true, sensitivity: 'base'}));
 }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './dataGrid.css';
 import faker from 'faker';
-import sortTable from "../../utils/sortTable";
+import sortTable, {sortTableData} from "../../utils/sortTable";
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 import { FixedSizeList as List } from 'react-window';
@@ -9,28 +9,41 @@ import { FixedSizeList as List } from 'react-window';
 const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
 const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
 
-function tableWithData (rows, columns){
+let tableDataVar = null;
+
+function tableData (rows){
+    if (tableDataVar) return tableDataVar;
+
     let table =[];
-    let Row;
     for (let i=0;i<rows;i+=1){
-        let children =[];
         const dataInCells = {
-            "seller": <img alt ='avatar' src ={faker.internet.avatar()}/>,
+            'seller': <img alt ='avatar' src ={faker.internet.avatar()}/>,
             'name': faker.name.firstName(),
             'product name': faker.commerce.productName(),
-            'price': faker.commerce.price().slice(0,-3)+'$',
+            'price': faker.commerce.price().slice(0,-3) + '$',
             'color': faker.commerce.color(),
             'in stock':faker.random.boolean()?'yes':"no",
             'email':<a href ="#" > {faker.internet.email()}</a>
         };
+
+        table.push (dataInCells)
+    }
+    tableDataVar = table;
+    return tableDataVar;
+}
+
+function tableWithData (rows, columns){
+    let tableRealData = tableData(rows, columns);
+    let table = [];
+    for (let i=0;i<rows;i+=1){
+        let children =[];
         for (let j=0; j<columns; j+=1){
-            children.push (<td className={classesOfColumns[j]} key ={i+j}> {dataInCells[namesOfColumns[j]]} </td>)
+            children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][namesOfColumns[j]]} </td>)
         }
 
         table.push (<tr className='row faker-row' key ={i}>{children}</tr> )
-
     }
-    Row = ({ data,index, style }) => {
+    let Row = ({ data,index, style }) => {
         const item = data[index];
         return (
             <div
@@ -56,8 +69,17 @@ function tableWithData (rows, columns){
 //TODO this variable should go to Redux state
 let arrClickedCells ;
 
+function sortTableWrapper(indexOfColumn, indexOfPreviouslyClicked, dataGrid) {
+    Array.from (document.getElementsByClassName('arrow')).map((item)=>{
+        return  item.classList.toggle('invisible')
+    });
+    sortTableData(indexOfColumn,indexOfPreviouslyClicked, tableDataVar, namesOfColumns);
+}
+
 export default function Datagrid (props){
     let toggled =[];
+    let tableHasChanges = false;
+    const [TableData, setTableData] = useState(tableHasChanges);
     const {numOfRows, numOfColumns} = props;
     return(
         <div className='table-responsive'>
@@ -91,19 +113,22 @@ export default function Datagrid (props){
                                     toggled=[];
                                     arrClickedCells=false;
                                 }
-                                sortTable(index,0)
+                                sortTableWrapper(index,0)
+                                setTableData(!TableData);
                             }
                             else{
                                 if (!arrClickedCells){
                                     arrClickedCells=index;
-                                    sortTable(index,0)
+                                    sortTableWrapper(index,0)
+                                    setTableData(!TableData);
                                 }
                                 else{
                                     if(e.target.classList.contains('sortAim')){
                                         e.target.classList.remove('sortAim');
                                     }
                                     else e.target.classList.add('sortAim');
-                                    sortTable(index,arrClickedCells)
+                                    sortTableWrapper(index,arrClickedCells)
+                                    setTableData(!TableData);
                                 }
 
 
