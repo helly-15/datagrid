@@ -46,76 +46,71 @@ function tableWithData (data){
     return <Example/>
 }
 
-export default function Datagrid (props){
-    console.log (props.dir);
-    console.log (props.columnsForSort);
+export default function Datagrid (props) {
+    console.log(props.dir);
+    console.log(props.columnsForSort);
     let {dir, setDir, data, setColumnsForSort, columnsForSort} = props;
-    let toggled =[];
+    let toggled = [];
 
-    Array.from (document.getElementsByClassName('arrow')).map((item)=>{
-        return  item.classList.toggle('invisible')
+    Array.from(document.getElementsByClassName('arrow')).map((item) => {
+        return item.classList.toggle('invisible')
     });
 
-    return(
+    return (
         <div className='table-responsive'>
-        <table className="container-fluid table-wrapper table table-hover">
-            <thead>
-            <tr className="row header-row">
-                { namesOfColumns.map((name,index)=>(
-                    <th className={classesOfColumns[index]}
-                        key={index+name}
-                        onClick = {(e)=>{
-                            if (!e.shiftKey) {
-                                setColumnsForSort([],[index]);
-                                Array.from(document.getElementsByClassName("sortAim")).map((element)=>{
-                                    return element.classList.remove('sortAim');
-                                });
-                                if (toggled.length===0)
-                                {
-                                    e.target.classList.add('sortAim');
-                                    toggled.push(e.target);
-                                }
-                                else if (e.target !==toggled[0])
-                                {
-                                    toggled[0].classList.remove('sortAim');
-                                    toggled[0]= e.target;
-                                    e.target.classList.add('sortAim');
-                                }
-                                else{
-                                    toggled[0].classList.remove('sortAim');
-                                    toggled=[];
-                                }
-                                if (columnsForSort.includes(index)) {
-                                    setDir(!dir);
-                                } else {
-                                    setDir(true);
-                                }
-                            }
-                            else{
-                                if (columnsForSort.length===0){
-                                    setColumnsForSort(columnsForSort, [index]);
-                                    setDir(!dir);
-                                } else {
-                                    setColumnsForSort(columnsForSort, [index]);
-                                    if(e.target.classList.contains('sortAim')){
-                                        e.target.classList.remove('sortAim');
-                                    } else {
+            <table className="container-fluid table-wrapper table table-hover">
+                <thead>
+                <tr className="row header-row">
+                    {namesOfColumns.map((name, index) => (
+                        <th className={classesOfColumns[index]}
+                            key={index + name}
+                            onClick={(e) => {
+                                if (!e.shiftKey) {
+                                    setColumnsForSort([], [index]);
+                                    Array.from(document.getElementsByClassName("sortAim")).map((element) => {
+                                        return element.classList.remove('sortAim');
+                                    });
+                                    if (toggled.length === 0) {
                                         e.target.classList.add('sortAim');
+                                        toggled.push(e.target);
+                                    } else if (e.target !== toggled[0]) {
+                                        toggled[0].classList.remove('sortAim');
+                                        toggled[0] = e.target;
+                                        e.target.classList.add('sortAim');
+                                    } else {
+                                        toggled[0].classList.remove('sortAim');
+                                        toggled = [];
+                                    }
+                                    if (columnsForSort.includes(index)) {
+                                        setDir(!dir);
+                                    } else {
+                                        setDir(true);
+                                    }
+                                } else {
+                                    if (columnsForSort.length === 0) {
+                                        setColumnsForSort(columnsForSort, [index]);
+                                        setDir(!dir);
+                                    } else {
+                                        setColumnsForSort(columnsForSort, [index]);
+                                        if (e.target.classList.contains('sortAim')) {
+                                            e.target.classList.remove('sortAim');
+                                        } else {
+                                            e.target.classList.add('sortAim');
+                                        }
                                     }
                                 }
-                            }
-                    }}>
-                        <img src={arrowDown} alt ='<' className ='arrow invisible'/>
-                        {name}
-                        <img src={arrowUp} alt ='>' className = 'arrow '/>
-                    </th>
-                ))}
-            </tr>
-            </thead>
-               <tbody>
-                   {tableWithData(data)}
-               </tbody>
-        </table>
-</div>
+                            }}>
+                            <img src={arrowDown} alt='<' className='arrow invisible'/>
+                            {name}
+                            <img src={arrowUp} alt='>' className='arrow '/>
+                        </th>
+                    ))}
+                </tr>
+                </thead>
+                <tbody>
+                {tableWithData(data)}
+                </tbody>
+            </table>
+        </div>
     )
 }
