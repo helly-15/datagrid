@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import { rowsReducer } from './rows'
-import { columnsReducer } from './columns'
 import {dataReducer} from "./data";
+import {filtersReducer} from "./filter";
+import {sortReducer} from "./sort";
 
 export const rootReducer = combineReducers({
-    Rows: rowsReducer,
-    Columns: columnsReducer,
     Data: dataReducer,
+    Filter:filtersReducer,
+    Sort: sortReducer,
 })
