@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './dataGrid.css';
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
@@ -43,8 +43,6 @@ function tableWithData (data){
 }
 
 export default function Datagrid (props) {
-    console.log(props.dir);
-    console.log(props.columnsForSort);
     let {dir, setDir, data, setColumnsForSort, columnsForSort} = props;
     let toggled = [];
 

@@ -1,20 +1,18 @@
 const filtersReducerDefaultState = {
-    sortBy: '',
+    checked: false,
+    search:'',
 };
  export function filtersReducer  (state = filtersReducerDefaultState, action) {
     switch (action.type) {
-        case 'SORT_BY':
+        case 'CHECKED':
             return {
                 ...state,
-                sortBy: action.sortType
+                checked: action.payload
             };
-        case 'CLEAR':
-            return {
+        case 'TABLE_SEARCH':
+            return{
                 ...state,
-                text: action.defaultFilter.text,
-                sortBy: action.defaultFilter.sortBy,
-                startYear: action.defaultFilter.startYear,
-                endYear: action.defaultFilter.endYear
+                search: action.payload
             };
         default:
             return state;
