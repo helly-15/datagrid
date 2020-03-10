@@ -5,6 +5,7 @@ import Header from "../components/header/Header";
 import Datagrid from "../components/datagrid/Datagrid";
 import SearchForm from "../components/search-form/SearchForm";
 import actions from "../actions";
+import {sortTableData2} from "../utils/sortTable";
 
 function App(state) {
     //console.log (state.data)
@@ -25,9 +26,14 @@ function App(state) {
 
 
 const mapStateToProps = store => {
+    console.log(store.Data)
     let {search, sort, shift} = store.Sort;
+
+    let data = [...store.Data];
+    sortTableData2(shift, data, sort)
+
     return {
-        data: store.Data,
+        data,
         search,
         sort,
         shift

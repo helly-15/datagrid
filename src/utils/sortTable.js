@@ -1,4 +1,6 @@
-export function sortTableData2(indexesOfColumn, tableData, namesOfColumns, dir) {
+const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
+
+export function sortTableData2(indexesOfColumn, tableData, dir) {
     const keys = indexesOfColumn.map(index => namesOfColumns[index]);
 
     let sorting = ()=> tableData.sort((a, b) => {

@@ -51,20 +51,24 @@ function sortTableWrapper(indexOfPreviouslyClicked, data, dir) {
         return  item.classList.toggle('invisible')
     });
     if (indexOfPreviouslyClicked.length === 0) return;
-    sortTableData2(indexOfPreviouslyClicked, data, namesOfColumns,dir)
+    sortTableData2(indexOfPreviouslyClicked, data, dir)
 }
 
 export default function Datagrid (props){
-
     console.log (props.dir);
     console.log (props.shift);
     let {dir, onSort, data, onShift, shift} = props;
     let toggled =[];
-    let tableHasChanges = false;
+  //  let tableHasChanges = false;
    // const [ClickedCells, setClickedCells]= useState([]);
-    const [TableData, setTableData] = useState(tableHasChanges);
+   // const [TableData, setTableData] = useState(tableHasChanges);
     //const [Dir, setDir] = useState(true);
-    sortTableWrapper(shift,data,dir);
+    // sortTableWrapper(shift,data,dir);
+
+    Array.from (document.getElementsByClassName('arrow')).map((item)=>{
+        return  item.classList.toggle('invisible')
+    });
+
     return(
         <div className='table-responsive'>
         <table className="container-fluid table-wrapper table table-hover">
@@ -99,13 +103,13 @@ export default function Datagrid (props){
                                 } else {
                                     onSort(true);
                                 }
-                                setTableData(!TableData);
+                              //  setTableData(!TableData);
                             }
                             else{
                                 if (shift.length===0){
                                     onShift(shift,[index]);
                                     onSort(!dir);
-                                    setTableData(!TableData);
+                                   // setTableData(!TableData);
                                 }
                                 else{
                                     onShift(shift,[index]);
@@ -113,7 +117,7 @@ export default function Datagrid (props){
                                         e.target.classList.remove('sortAim');
                                     }
                                     else e.target.classList.add('sortAim');
-                                    setTableData(!TableData);
+                                   // setTableData(!TableData);
                                 }
                             }
                     }}>
