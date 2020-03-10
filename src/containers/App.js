@@ -17,34 +17,34 @@ function App(state) {
                 <SearchForm/>
                 <Datagrid
                     data={state.data}
-                    setDir={state.onSort}
-                    dir={state.sort}
-                    columnsForSort={state.shift}
-                    setColumnsForSort={state.onShift}/>
+                    setDir={state.setDir}
+                    dir={state.dir}
+                    columnsForSort={state.columnsForSort}
+                    setColumnsForSort={state.setColumnsForSort}/>
             </main>
         </div>
     );
 }
 
 const mapStateToProps = store => {
-    let {search, sort, shift} = store.Sort;
+    let {search, dir, columnsForSort} = store.Sort;
 
     let data = [...store.Data];
-    sortTableData(shift, data, sort);
+    sortTableData(columnsForSort, data, dir);
 
     return {
         data,
         search,
-        sort,
-        shift
+        dir,
+        columnsForSort
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onSearchChange: (search) => dispatch({type: 'TABLE_SEARCH', payload: search}),
-        onSort: (property) => dispatch(actions.onSort(property)),
-        onShift: (oldheading, heading) => dispatch(actions.onShift(oldheading, heading)),
+        setDir: (property) => dispatch(actions.setDir(property)),
+        setColumnsForSort: (oldheading, heading) => dispatch(actions.setColumnsForSort(oldheading, heading)),
     }
 };
 

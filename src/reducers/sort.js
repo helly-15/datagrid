@@ -1,15 +1,15 @@
 let defaultTableState = {
-    sort: true,
+    dir: true,
     search: '',
-    shift: [],
+    columnsForSort: [],
 };
 
 export function sortReducer (state = defaultTableState, action)  {
     switch (action.type) {
-        case 'TABLE_SORT':
-            return {...state, sort: action.payload};
-        case 'TABLE_SHIFT':
-            return {...state, shift: action.payload};
+        case 'SET_TABLE_DIR':
+            return {...state, dir: action.payload};
+        case 'SET_TABLE_COLUMNS_FOR_SORT':
+            return {...state, columnsForSort: action.payload};
         case 'TABLE_SEARCH':
             return {...state, search: action.payload};
         default:
