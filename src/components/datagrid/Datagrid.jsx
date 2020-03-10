@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './dataGrid.css';
-import {sortTableData2} from "../../utils/sortTable";
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 import { FixedSizeList as List } from 'react-window';
@@ -8,11 +7,8 @@ import { FixedSizeList as List } from 'react-window';
 const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
 const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
 
-//let tableDataVar = null;
-
 function tableWithData (data){
     let tableRealData = data;
-    //console.log (Object.keys(data[0]).length)
     let table = [];
     for (let i=0;i<data.length;i+=1){
 
