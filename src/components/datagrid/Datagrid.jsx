@@ -46,24 +46,11 @@ function tableWithData (data){
     return <Example/>
 }
 
-function sortTableWrapper(indexOfPreviouslyClicked, data, dir) {
-    Array.from (document.getElementsByClassName('arrow')).map((item)=>{
-        return  item.classList.toggle('invisible')
-    });
-    if (indexOfPreviouslyClicked.length === 0) return;
-    sortTableData2(indexOfPreviouslyClicked, data, dir)
-}
-
 export default function Datagrid (props){
     console.log (props.dir);
-    console.log (props.shift);
-    let {dir, onSort, data, onShift, shift} = props;
+    console.log (props.columnsForSort);
+    let {dir, setDir, data, setColumnsForSort, columnsForSort} = props;
     let toggled =[];
-  //  let tableHasChanges = false;
-   // const [ClickedCells, setClickedCells]= useState([]);
-   // const [TableData, setTableData] = useState(tableHasChanges);
-    //const [Dir, setDir] = useState(true);
-    // sortTableWrapper(shift,data,dir);
 
     Array.from (document.getElementsByClassName('arrow')).map((item)=>{
         return  item.classList.toggle('invisible')
@@ -79,7 +66,7 @@ export default function Datagrid (props){
                         key={index+name}
                         onClick = {(e)=>{
                             if (!e.shiftKey) {
-                                onShift([],[index]);
+                                setColumnsForSort([],[index]);
                                 Array.from(document.getElementsByClassName("sortAim")).map((element)=>{
                                     return element.classList.remove('sortAim');
                                 });
@@ -98,26 +85,23 @@ export default function Datagrid (props){
                                     toggled[0].classList.remove('sortAim');
                                     toggled=[];
                                 }
-                                if (shift.includes(index)) {
-                                    onSort(!dir);
+                                if (columnsForSort.includes(index)) {
+                                    setDir(!dir);
                                 } else {
-                                    onSort(true);
+                                    setDir(true);
                                 }
-                              //  setTableData(!TableData);
                             }
                             else{
-                                if (shift.length===0){
-                                    onShift(shift,[index]);
-                                    onSort(!dir);
-                                   // setTableData(!TableData);
-                                }
-                                else{
-                                    onShift(shift,[index]);
+                                if (columnsForSort.length===0){
+                                    setColumnsForSort(columnsForSort, [index]);
+                                    setDir(!dir);
+                                } else {
+                                    setColumnsForSort(columnsForSort, [index]);
                                     if(e.target.classList.contains('sortAim')){
                                         e.target.classList.remove('sortAim');
+                                    } else {
+                                        e.target.classList.add('sortAim');
                                     }
-                                    else e.target.classList.add('sortAim');
-                                   // setTableData(!TableData);
                                 }
                             }
                     }}>

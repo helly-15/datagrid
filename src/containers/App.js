@@ -16,7 +16,12 @@ function App(state) {
         </header>
         <main>
             <SearchForm/>
-        <Datagrid data = {state.data} onSort ={state.onSort} dir ={state.sort} shift ={state.shift} onShift={state.onShift}/>
+        <Datagrid
+            data = {state.data}
+            setDir= {state.onSort}
+            dir = {state.sort}
+            columnsForSort={state.shift}
+            setColumnsForSort= {state.onShift}/>
         </main>
     </div>
   );
