@@ -2,6 +2,7 @@ const filtersReducerDefaultState = {
     checked: false,
     search:'',
     color: [],
+    virtualize : false
 };
  export function filtersReducer  (state = filtersReducerDefaultState, action) {
     switch (action.type) {
@@ -19,6 +20,11 @@ const filtersReducerDefaultState = {
             return{
                 ...state,
                 color: action.payload
+            };
+        case 'VIRTUALIZATION':
+            return {
+                ...state,
+                virtualize: action.payload
             };
         default:
             return state;

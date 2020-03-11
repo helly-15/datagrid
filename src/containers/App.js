@@ -22,13 +22,16 @@ function App(state) {
                 onChecked ={state.onChecked}
                 onColorChange ={state.onColorChange}
                 color = {state.color}
+                onVirtualize ={state.onVirtualize}
                 />
                 <Datagrid
                     data={state.data}
                     setDir={state.setDir}
                     dir={state.dir}
                     columnsForSort={state.columnsForSort}
-                    setColumnsForSort={state.setColumnsForSort}/>
+                    setColumnsForSort={state.setColumnsForSort}
+                    virtualize ={state.virtualize}
+                />
             </main>
         </div>
     );
@@ -36,7 +39,7 @@ function App(state) {
 
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
-let {checked, search, color} = store.Filter;
+let {checked, search, color,virtualize} = store.Filter;
 console.log (color);
     let data = [...dropdownFilter (color, searchMatches(search,filterData(checked,store.Data) ))];
 
@@ -48,7 +51,8 @@ console.log (color);
         dir,
         columnsForSort,
         checked,
-        color
+        color,
+        virtualize
     }
 };
 
@@ -59,6 +63,7 @@ const mapDispatchToProps = (dispatch) => {
         setColumnsForSort: (oldheading, heading) => dispatch(actions.setColumnsForSort(oldheading, heading)),
         onChecked: (checked)=>dispatch (actions.onChecked(checked)),
         onColorChange: (color)=>dispatch (actions.onColorChange(color)),
+        onVirtualize: (virtualize)=>dispatch (actions.onVirtualize(virtualize)),
     }
 };
 

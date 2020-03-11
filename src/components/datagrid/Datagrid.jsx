@@ -7,7 +7,7 @@ import { FixedSizeList as List } from 'react-window';
 const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
 const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
 
-function tableWithData (data){
+function tableWithData (data, virtualize){
     let tableRealData = data;
     let table = [];
     for (let i=0;i<data.length;i+=1){
@@ -39,11 +39,14 @@ function tableWithData (data){
             {Row}
         </List>
     );
-    return <Example/>
+    if (virtualize){
+        return <Example/>
+    }
+    return table
 }
 
 export default function Datagrid (props) {
-    let {dir, setDir, data, setColumnsForSort, columnsForSort} = props;
+    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize} = props;
     let toggled = [];
 
     Array.from(document.getElementsByClassName('arrow')).map((item) => {
@@ -102,7 +105,7 @@ export default function Datagrid (props) {
                 </tr>
                 </thead>
                 <tbody>
-                {tableWithData(data)}
+                {tableWithData(data,virtualize)}
                 </tbody>
             </table>
         </div>

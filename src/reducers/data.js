@@ -18,6 +18,6 @@ function tableData (rows){
     }
     return table;
 }
-export function dataReducer(state = tableData(100)) {
+export function dataReducer(state = tableData(1000)) {
     return state
 }

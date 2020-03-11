@@ -3,7 +3,8 @@ const actions = {
     setColumnsForSort: (oldheading, heading) => ({type: 'SET_TABLE_COLUMNS_FOR_SORT', payload: oldheading.concat(heading)}),
     onSearchChange: (search) => ({type: 'TABLE_SEARCH', payload: search}),
     onChecked: (checked) => ({type: 'CHECKED', payload: checked}),
-    onColorChange:(color)=> ({type: 'COLOR_SELECT', payload: color})
+    onColorChange:(color)=> ({type: 'COLOR_SELECT', payload: color}),
+    onVirtualize: (virtualize)=>({type: 'VIRTUALIZATION', payload:virtualize})
 };
 
 export default actions;
