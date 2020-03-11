@@ -35,9 +35,7 @@ const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
 let {checked, search} = store.Filter;
     let data = [...searchMatches(search,filterData(checked,store.Data) )];
-   // console.log (checked,data)
-    //filterData (checked, data);
-   // searchMatches(search, data);
+
     sortTableData(columnsForSort, data, dir);
 
     return {

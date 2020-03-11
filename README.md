@@ -1,5 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-Used technologies - React, Redux, React-window, React selectors, 
+Used technologies - React, Redux, React-window, virtualization
 ## Available Scripts
 
 In the project directory, you can run:
