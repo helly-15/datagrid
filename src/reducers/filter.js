@@ -1,6 +1,7 @@
 const filtersReducerDefaultState = {
     checked: false,
     search:'',
+    color: [],
 };
  export function filtersReducer  (state = filtersReducerDefaultState, action) {
     switch (action.type) {
@@ -13,6 +14,11 @@ const filtersReducerDefaultState = {
             return{
                 ...state,
                 search: action.payload
+            };
+        case 'COLOR_SELECT':
+            return{
+                ...state,
+                color: action.payload
             };
         default:
             return state;

@@ -8,6 +8,7 @@ import actions from "../actions";
 import {sortTableData} from "../utils/sortTable";
 import {filterData} from "../utils/filterAvailability";
 import {searchMatches} from "../utils/search";
+import dropdownFilter from "../utils/dropdownFilter";
 
 function App(state) {
     return (
@@ -19,6 +20,8 @@ function App(state) {
                 <SearchForm
                 onSearch ={state.onSearchChange}
                 onChecked ={state.onChecked}
+                onColorChange ={state.onColorChange}
+                color = {state.color}
                 />
                 <Datagrid
                     data={state.data}
@@ -33,8 +36,9 @@ function App(state) {
 
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
-let {checked, search} = store.Filter;
-    let data = [...searchMatches(search,filterData(checked,store.Data) )];
+let {checked, search, color} = store.Filter;
+console.log (color);
+    let data = [...dropdownFilter (color, searchMatches(search,filterData(checked,store.Data) ))];
 
     sortTableData(columnsForSort, data, dir);
 
@@ -42,7 +46,9 @@ let {checked, search} = store.Filter;
         data,
         search,
         dir,
-        columnsForSort
+        columnsForSort,
+        checked,
+        color
     }
 };
 
@@ -51,7 +57,8 @@ const mapDispatchToProps = (dispatch) => {
         onSearchChange: (search) => dispatch({type: 'TABLE_SEARCH', payload: search}),
         setDir: (property) => dispatch(actions.setDir(property)),
         setColumnsForSort: (oldheading, heading) => dispatch(actions.setColumnsForSort(oldheading, heading)),
-        onChecked: (checked)=>dispatch (actions.onChecked(checked))
+        onChecked: (checked)=>dispatch (actions.onChecked(checked)),
+        onColorChange: (color)=>dispatch (actions.onColorChange(color)),
     }
 };
 
