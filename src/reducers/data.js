@@ -5,6 +5,7 @@ function tableData (rows){
    let table =[];
     for (let i=0;i<rows;i+=1){
         const dataInCells = {
+            'id': i.toString(),
             'seller': <img alt ='avatar' src ={faker.internet.avatar()}/>,
             'name': faker.name.firstName(),
             'product name': faker.commerce.productName(),

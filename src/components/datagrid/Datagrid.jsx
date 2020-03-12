@@ -4,8 +4,11 @@ import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 import { FixedSizeList as List } from 'react-window';
 
-const namesOfColumns =['seller','name','product name', 'price', 'color','in stock','email'];
-const classesOfColumns =["col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-3"];
+const classesOfColumns =["col-sm-1", "col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-2"];
+
+function tableKeys(data) {
+    return Object.keys(data[0]);
+}
 
 function tableWithData (data, virtualize){
     let tableRealData = data;
@@ -13,8 +16,10 @@ function tableWithData (data, virtualize){
     for (let i=0;i<data.length;i+=1){
 
         let children =[];
-        for (let j=0; j<Object.keys(data[0]).length; j+=1){
-            children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][namesOfColumns[j]]} </td>)
+        let keys = tableKeys(data);
+        for (let j=0; j < keys.length; j+=1){
+            let key = keys[j];
+            children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)
         }
         table.push (<tr className='row faker-row' key ={i}>{children}</tr> )
     }
@@ -56,7 +61,7 @@ export default function Datagrid (props) {
             <table className="container-fluid table-wrapper table table-hover">
                 <thead >
                 <tr className="row header-row">
-                    {namesOfColumns.map((name, index) => (
+                    {tableKeys(data).map((name, index) => (
                         <th className={classesOfColumns[index]}
                             key={index + name}
                             onClick={(e) => {
