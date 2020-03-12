@@ -2,7 +2,7 @@ const filtersReducerDefaultState = {
     checked: false,
     search:'',
     color: [],
-    virtualize : false
+    virtualize : true
 };
  export function filtersReducer  (state = filtersReducerDefaultState, action) {
     switch (action.type) {

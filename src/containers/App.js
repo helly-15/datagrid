@@ -24,6 +24,7 @@ function App(state) {
                 onChecked ={state.onChecked}
                 onColorChange ={state.onColorChange}
                 color = {state.color}
+                virtualize = {state.virtualize}
                 onVirtualize ={state.onVirtualize}
                 />
                 <Datagrid
