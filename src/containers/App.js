@@ -34,6 +34,8 @@ function App(state) {
                     columnsForSort={state.columnsForSort}
                     setColumnsForSort={state.setColumnsForSort}
                     virtualize ={state.virtualize}
+                    selection = {state.selection}
+                    setSelection = {state.setSelection}
                 />
                 <StickyHeader/>
             </main>
@@ -44,7 +46,7 @@ function App(state) {
 
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
-let {checked, search, color,virtualize} = store.Filter;
+    let {checked, search, color, virtualize, selection} = store.Filter;
 
     let data = [...dropdownFilter (color, searchMatches(search,filterData(checked,store.Data) ))];
 
@@ -57,7 +59,8 @@ let {checked, search, color,virtualize} = store.Filter;
         columnsForSort,
         checked,
         color,
-        virtualize
+        virtualize,
+        selection
     }
 };
 
@@ -69,6 +72,7 @@ const mapDispatchToProps = (dispatch) => {
         onChecked: (checked)=>dispatch (actions.onChecked(checked)),
         onColorChange: (color)=>dispatch (actions.onColorChange(color)),
         onVirtualize: (virtualize)=>dispatch (actions.onVirtualize(virtualize)),
+        setSelection: (newSelection)=>dispatch(actions.setSelection(newSelection)),
     }
 };
 

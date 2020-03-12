@@ -36,4 +36,8 @@
   padding-top: 60px;
 }
 
+.selected-row {
+  background-color: aqua;
+}
+
 /*# sourceMappingURL=dataGrid.css.map */

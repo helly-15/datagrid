@@ -10,7 +10,7 @@ function tableKeys(data) {
     return Object.keys(data[0]);
 }
 
-function tableWithData (data, virtualize){
+function tableWithData (data, virtualize, selection, setSelection){
     let tableRealData = data;
     let table = [];
     for (let i=0;i<data.length;i+=1){
@@ -21,7 +21,26 @@ function tableWithData (data, virtualize){
             let key = keys[j];
             children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)
         }
-        table.push (<tr className='row faker-row' key ={i}>{children}</tr> )
+        let id = data[i]["id"];
+        let classNameString = 'row faker-row';
+        if (selection.includes(id)) {
+            classNameString = 'row faker-row selected-row';
+        }
+        table.push (<tr className={classNameString} key ={i}
+                        onClick={(e) => {
+                            if (!e.shiftKey) {
+                                if (selection.length === 1 && selection.includes(id)) {
+                                    setSelection([]);
+                                } else {
+                                    setSelection(id);
+                                }
+                            } else {
+                                if (!selection.includes(id))
+                                    setSelection(selection.concat(id));
+                            }
+
+                        }}
+        >{children}</tr> )
     }
     let Row = ({ data,index, style }) => {
         const item = data[index];
@@ -51,7 +70,7 @@ function tableWithData (data, virtualize){
 }
 
 export default function Datagrid (props) {
-    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize} = props;
+    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize, selection, setSelection} = props;
     let toggled = [];
 
 
@@ -111,7 +130,7 @@ export default function Datagrid (props) {
                 </tr>
                 </thead>
                 <tbody>
-                {tableWithData(data,virtualize)}
+                {tableWithData(data,virtualize, selection, setSelection)}
                 </tbody>
             </table>
         </div>

@@ -4,7 +4,8 @@ const actions = {
     onSearchChange: (search) => ({type: 'TABLE_SEARCH', payload: search}),
     onChecked: (checked) => ({type: 'CHECKED', payload: checked}),
     onColorChange:(color)=> ({type: 'COLOR_SELECT', payload: color}),
-    onVirtualize: (virtualize)=>({type: 'VIRTUALIZATION', payload:virtualize})
+    onVirtualize: (virtualize)=>({type: 'VIRTUALIZATION', payload:virtualize}),
+    setSelection: (newSelection)=>({type: 'SELECT', payload: newSelection})
 };
 
 export default actions;
