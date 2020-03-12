@@ -9,8 +9,10 @@ import {sortTableData} from "../utils/sortTable";
 import {filterData} from "../utils/filterAvailability";
 import {searchMatches} from "../utils/search";
 import dropdownFilter from "../utils/dropdownFilter";
+import StickyHeader from "../utils/stickyHeader";
 
 function App(state) {
+
     return (
         <div className="App">
             <header className="App-header">
@@ -32,15 +34,17 @@ function App(state) {
                     setColumnsForSort={state.setColumnsForSort}
                     virtualize ={state.virtualize}
                 />
+                <StickyHeader/>
             </main>
         </div>
     );
+
 }
 
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
 let {checked, search, color,virtualize} = store.Filter;
-console.log (color);
+
     let data = [...dropdownFilter (color, searchMatches(search,filterData(checked,store.Data) ))];
 
     sortTableData(columnsForSort, data, dir);

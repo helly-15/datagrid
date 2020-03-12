@@ -4,6 +4,7 @@
   font-style: italic;
   text-transform: capitalize;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .row {
@@ -19,7 +20,20 @@
 }
 
 .sortAim {
-  background-color: gray;
+  background-color: rgba(86, 61, 124, 0.15);
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #282c34;
+  color: white;
+  z-index: 3;
+}
+
+.sticky + .header-row {
+  padding-top: 60px;
 }
 
 /*# sourceMappingURL=dataGrid.css.map */

@@ -49,19 +49,20 @@ export default function Datagrid (props) {
     let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize} = props;
     let toggled = [];
 
-    Array.from(document.getElementsByClassName('arrow')).map((item) => {
-        return item.classList.toggle('invisible')
-    });
+
 
     return (
         <div className='table-responsive'>
             <table className="container-fluid table-wrapper table table-hover">
-                <thead>
+                <thead >
                 <tr className="row header-row">
                     {namesOfColumns.map((name, index) => (
                         <th className={classesOfColumns[index]}
                             key={index + name}
                             onClick={(e) => {
+                                Array.from(document.getElementsByClassName('arrow')).map((item) => {
+                                    return item.classList.toggle('invisible')
+                                });
                                 if (!e.shiftKey) {
                                     setColumnsForSort([], [index]);
                                     Array.from(document.getElementsByClassName("sortAim")).map((element) => {
