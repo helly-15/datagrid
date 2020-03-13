@@ -31,5 +31,8 @@
 }
 
 .selected-row {
-  background-color: aqua;
+  background-color: #757575;
+}
+.table-hover tbody tr:hover {
+  background-color: rgba(0,0,0,0.5);
 }

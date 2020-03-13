@@ -10,6 +10,7 @@ import {filterData} from "../utils/filterAvailability";
 import {searchMatches} from "../utils/search";
 import dropdownFilter from "../utils/dropdownFilter";
 import StickyHeader from "../utils/stickyHeader";
+import {filterDeletedRow} from "../utils/filterDeletedRow";
 
 function App(state) {
 
@@ -26,15 +27,18 @@ function App(state) {
                 color = {state.color}
                 virtualize = {state.virtualize}
                 onVirtualize ={state.onVirtualize}
+                onRowDelete ={state.onRowDelete}
+                selection ={state.selection}
+                deletedRows ={state.deletedRows}
                 />
                 <Datagrid
                     data={state.data}
                     setDir={state.setDir}
                     dir={state.dir}
+                    selection ={state.selection}
                     columnsForSort={state.columnsForSort}
                     setColumnsForSort={state.setColumnsForSort}
                     virtualize ={state.virtualize}
-                    selection = {state.selection}
                     setSelection = {state.setSelection}
                 />
                 <StickyHeader/>
@@ -46,9 +50,9 @@ function App(state) {
 
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
-    let {checked, search, color, virtualize, selection} = store.Filter;
+    let {checked, search, color, virtualize, selection, deletedRows} = store.Filter;
 
-    let data = [...dropdownFilter (color, searchMatches(search,filterData(checked,store.Data) ))];
+    let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
 
     sortTableData(columnsForSort, data, dir);
 
@@ -60,7 +64,8 @@ const mapStateToProps = store => {
         checked,
         color,
         virtualize,
-        selection
+        selection,
+        deletedRows
     }
 };
 
@@ -73,6 +78,7 @@ const mapDispatchToProps = (dispatch) => {
         onColorChange: (color)=>dispatch (actions.onColorChange(color)),
         onVirtualize: (virtualize)=>dispatch (actions.onVirtualize(virtualize)),
         setSelection: (newSelection)=>dispatch(actions.setSelection(newSelection)),
+        onRowDelete: (deletedSelection)=>dispatch({type: 'DELETE_ROW', payload: deletedSelection})
     }
 };
 

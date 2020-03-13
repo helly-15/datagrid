@@ -3,7 +3,8 @@ const filtersReducerDefaultState = {
     search:'',
     color: [],
     virtualize : true,
-    selection: []
+    selection: [],
+    deletedRows:[]
 };
  export function filtersReducer  (state = filtersReducerDefaultState, action) {
     switch (action.type) {
@@ -31,6 +32,11 @@ const filtersReducerDefaultState = {
             return {
                 ...state,
                 selection: action.payload
+            };
+        case 'DELETE_ROW':
+            return {
+                ...state,
+                deletedRows: action.payload
             };
         default:
             return state;

@@ -5,7 +5,8 @@ const actions = {
     onChecked: (checked) => ({type: 'CHECKED', payload: checked}),
     onColorChange:(color)=> ({type: 'COLOR_SELECT', payload: color}),
     onVirtualize: (virtualize)=>({type: 'VIRTUALIZATION', payload:virtualize}),
-    setSelection: (newSelection)=>({type: 'SELECT', payload: newSelection})
+    setSelection: (newSelection)=>({type: 'SELECT', payload: newSelection}),
+    onRowDelete: (deletedSelection)=>({type: 'DELETE_ROW', payload: deletedSelection}),
 };
 
 export default actions;
