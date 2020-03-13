@@ -7,6 +7,7 @@ const actions = {
     onVirtualize: (virtualize)=>({type: 'VIRTUALIZATION', payload:virtualize}),
     setSelection: (newSelection)=>({type: 'SELECT', payload: newSelection}),
     onRowDelete: (deletedSelection)=>({type: 'DELETE_ROW', payload: deletedSelection}),
+    onHideColumn: (hiddenColumn)=>({type: 'HIDE_COLUMN', payload: hiddenColumn})
 };
 
 export default actions;

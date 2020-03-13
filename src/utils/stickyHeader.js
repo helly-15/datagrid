@@ -13,8 +13,6 @@ export default function StickyHeader(){
         function myFunction() {
 
             if (window.pageYOffset > sticky) {
-                console.log (window.pageYOffset);
-                console.log (sticky)
                 navbar.classList.add("sticky")
             } else {
                 navbar.classList.remove("sticky");

@@ -40,6 +40,8 @@ function App(state) {
                     setColumnsForSort={state.setColumnsForSort}
                     virtualize ={state.virtualize}
                     setSelection = {state.setSelection}
+                    onHideColumn = {state.onHideColumn}
+                    hiddenColumn = {state.hiddenColumns}
                 />
                 <StickyHeader/>
             </main>
@@ -50,7 +52,7 @@ function App(state) {
 
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
-    let {checked, search, color, virtualize, selection, deletedRows} = store.Filter;
+    let {checked, search, color, virtualize, selection, deletedRows, hiddenColumns} = store.Filter;
 
     let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
 
@@ -65,7 +67,8 @@ const mapStateToProps = store => {
         color,
         virtualize,
         selection,
-        deletedRows
+        deletedRows,
+        hiddenColumns
     }
 };
 
@@ -78,7 +81,8 @@ const mapDispatchToProps = (dispatch) => {
         onColorChange: (color)=>dispatch (actions.onColorChange(color)),
         onVirtualize: (virtualize)=>dispatch (actions.onVirtualize(virtualize)),
         setSelection: (newSelection)=>dispatch(actions.setSelection(newSelection)),
-        onRowDelete: (deletedSelection)=>dispatch({type: 'DELETE_ROW', payload: deletedSelection})
+        onRowDelete: (deletedSelection)=>dispatch({type: 'DELETE_ROW', payload: deletedSelection}),
+        onHideColumn: (hiddenColumn)=>dispatch({type: 'HIDE_COLUMN', payload: hiddenColumn}),
     }
 };
 

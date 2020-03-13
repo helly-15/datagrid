@@ -4,7 +4,8 @@ const filtersReducerDefaultState = {
     color: [],
     virtualize : true,
     selection: [],
-    deletedRows:[]
+    deletedRows:[],
+    hiddenColumns:[]
 };
  export function filtersReducer  (state = filtersReducerDefaultState, action) {
     switch (action.type) {
@@ -37,6 +38,11 @@ const filtersReducerDefaultState = {
             return {
                 ...state,
                 deletedRows: action.payload
+            };
+        case 'HIDE_COLUMN':
+            return {
+                ...state,
+                hiddenColumns: action.payload
             };
         default:
             return state;

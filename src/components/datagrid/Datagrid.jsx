@@ -3,6 +3,7 @@ import './dataGrid.css';
 import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 import { FixedSizeList as List } from 'react-window';
+import RowVisibility from "../row-visibility/RowVisibility";
 
 const classesOfColumns =["col-sm-1", "col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-2"];
 
@@ -10,7 +11,7 @@ function tableKeys(data) {
     return Object.keys(data[0]);
 }
 
-function tableWithData (data, virtualize, selection, setSelection){
+function tableWithData (data, virtualize, selection, setSelection, hiddenColumn){
     let tableRealData = data;
     let table = [];
     for (let i=0;i<data.length;i+=1){
@@ -19,7 +20,10 @@ function tableWithData (data, virtualize, selection, setSelection){
         let keys = tableKeys(data);
         for (let j=0; j < keys.length; j+=1){
             let key = keys[j];
-            children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)
+            if (hiddenColumn.includes (j)){
+                children.push (<td className='hidden' key ={i+j}> </td>)
+            }
+            else children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)
         }
         let id = data[i]["id"];
         let classNameString = 'row faker-row';
@@ -70,17 +74,15 @@ function tableWithData (data, virtualize, selection, setSelection){
 }
 
 export default function Datagrid (props) {
-    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize, selection, setSelection} = props;
+    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize, selection, setSelection, onHideColumn, hiddenColumn} = props;
     let toggled = [];
-
-
-
     return (
         <div className='table-responsive'>
             <table className="container-fluid table-wrapper table table-hover">
                 <thead >
                 <tr className="row header-row">
                     {tableKeys(data).map((name, index) => (
+                        hiddenColumn.includes(index)?<th className= 'hidden'></th>:
                         <th className={classesOfColumns[index]}
                             key={index + name}
                             onClick={(e) => {
@@ -129,8 +131,9 @@ export default function Datagrid (props) {
                     ))}
                 </tr>
                 </thead>
+                <RowVisibility onHideColumn = {onHideColumn} hiddenColumn ={hiddenColumn} />
                 <tbody>
-                {tableWithData(data,virtualize, selection, setSelection)}
+                {tableWithData(data,virtualize, selection, setSelection, hiddenColumn)}
                 </tbody>
             </table>
         </div>
