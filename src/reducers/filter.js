@@ -35,9 +35,15 @@ const filtersReducerDefaultState = {
                 selection: action.payload
             };
         case 'DELETE_ROW':
+            // return {
+            //     ...state,
+            //     deletedRows: action.payload
+            // };
+
+
             return {
                 ...state,
-                deletedRows: action.payload
+                deletedRows: state.deletedRows.concat(state.selection)
             };
         case 'HIDE_COLUMN':
             return {

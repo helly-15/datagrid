@@ -36,11 +36,11 @@ function tableWithData (data, virtualize, selection, setSelection, hiddenColumn)
                                 if (selection.length === 1 && selection.includes(id)) {
                                     setSelection([]);
                                 } else {
-                                    setSelection(id);
+                                    setSelection([id]);
                                 }
                             } else {
                                 if (!selection.includes(id))
-                                    setSelection(selection.concat(id));
+                                    setSelection(selection.concat([id]));
                             }
 
                         }}

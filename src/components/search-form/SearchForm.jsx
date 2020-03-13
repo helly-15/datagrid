@@ -29,7 +29,8 @@ export default function SearchForm(props){
                 </div>
             </div>
 
-            <button type="button" className="btn btn-danger" onClick={()=>{onRowDelete(deletedRows.concat(selection.split('')))}}>Delete row</button>
+            {/*<button type="button" className="btn btn-danger" onClick={()=>{onRowDelete(deletedRows.concat(selection.split('')))}}>Delete row</button>*/}
+            <button type="button" className="btn btn-danger" onClick={()=>{onRowDelete([])}}>Delete row</button>
         </div>
 
 )
