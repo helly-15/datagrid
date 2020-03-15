@@ -30,6 +30,7 @@ function App(state) {
                 onRowDelete ={state.onRowDelete}
                 selection ={state.selection}
                 deletedRows ={state.deletedRows}
+                data ={state.data}
                 />
                 <Datagrid
                     data={state.data}
@@ -55,8 +56,8 @@ const mapStateToProps = store => {
     let {checked, search, color, virtualize, selection, deletedRows, hiddenColumns} = store.Filter;
 
     let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
-
     sortTableData(columnsForSort, data, dir);
+
 
     return {
         data,

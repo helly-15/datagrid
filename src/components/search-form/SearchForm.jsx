@@ -3,12 +3,22 @@ import './SearchForm.css'
 import ColorSelect from "../color-select/colorSelect";
 
 export default function SearchForm(props){
-   let {onSearch, onChecked, onColorChange, color, virtualize, onVirtualize, selection, onRowDelete, deletedRows} = props;
-    return(
+   let {onSearch, onChecked, onColorChange, color, virtualize, onVirtualize, onRowDelete, data} = props;
+    let csvContent = "data:text/csv;charset=utf-8,"
+        + data.map(e =>
+        { let lineOfData ='';
+            for (let key in e){
+        lineOfData=lineOfData+e[key]+','
+    }
+            return lineOfData
+        }
+            ).join("\n");
+    let encodedUri = encodeURI(csvContent);
+   return(
         <div className="input-group ">
             <div className="input-group-prepend">
                 <div className="input-group-text">
-                    <input type="checkbox" checked={virtualize} className='checkbox' aria-label="Checkbox for virtualization" onClick={(e)=>onVirtualize(e.target.checked)} />
+                    <input type="checkbox" defaultChecked={virtualize} className='checkbox' aria-label="Checkbox for virtualization" onClick={(e)=>onVirtualize(e.target.checked)} />
                     <div className='check-box'>
                         <span className="h6">
                             Switch virtualization
@@ -28,9 +38,12 @@ export default function SearchForm(props){
                     </div>
                 </div>
             </div>
-
-            {/*<button type="button" className="btn btn-danger" onClick={()=>{onRowDelete(deletedRows.concat(selection.split('')))}}>Delete row</button>*/}
             <button type="button" className="btn btn-danger" onClick={()=>{onRowDelete([])}}>Delete row</button>
+            <button type="button" className="btn btn-link" >
+                <a href={encodedUri} download='sellers.csv'>
+                    Export CSV
+                </a>
+            </button>
         </div>
 
 )
