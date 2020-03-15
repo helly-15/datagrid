@@ -54,9 +54,37 @@ function App(state) {
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
     let {checked, search, color, virtualize, selection, deletedRows, hiddenColumns} = store.Filter;
+    //console.log (window.localStorage)
+    //console.log (JSON.parse (window.localStorage.getItem('0')));
+    /*let retrieveDataFromLocalStorage = ()=>{
+        let data =[];
+        for (let key in localStorage){
 
-    let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
+            if (localStorage.hasOwnProperty(key)){
+                data.push (JSON.parse(window.localStorage.getItem(key)))
+                //console.log (key);
+            }
+        }
+        return data;
+    }*/
+    //console.log (retrieveDataFromLocalStorage()[0]);
+   //window.localStorage.clear();
+   /* let data = retrieveDataFromLocalStorage();
+
+
+    if (data.length === 0) {
+        data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
+    }*/
+    //console.log (data);
+   let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
     sortTableData(columnsForSort, data, dir);
+    window.localStorage.clear();
+    for (let i=0;i<data.length;i++){
+        window.localStorage.setItem(`${i}`, JSON.stringify(data[i]));
+    };
+
+
+
 
 
     return {

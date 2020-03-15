@@ -16,5 +16,8 @@ export function searchMatches(value, data) {
 
         }
     }
-      return results;
+      if (results.length !==0){
+          return results;
+      }
+      else return data;
 }

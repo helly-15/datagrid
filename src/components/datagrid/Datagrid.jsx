@@ -4,6 +4,7 @@ import arrowUp from './arrowUp.svg';
 import arrowDown from './arrowDown.png';
 import { FixedSizeList as List } from 'react-window';
 import RowVisibility from "../row-visibility/RowVisibility";
+import faker from "faker";
 
 const classesOfColumns =["col-sm-1", "col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-2"];
 
@@ -23,7 +24,14 @@ function tableWithData (data, virtualize, selection, setSelection, hiddenColumn)
             if (hiddenColumn.includes (j)){
                 children.push (<td className='hidden' key ={i+j}> </td>)
             }
-            else children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)
+            else {
+                if (key ==='seller'){
+                    children.push (<td className={classesOfColumns[j]} key ={i+j}> <img alt ='avatar' src ={faker.internet.avatar()}/> </td>)
+                }
+                else if (key ==='email'){
+                    children.push (<td className={classesOfColumns[j]} key ={i+j}> <a href ="#" > {faker.internet.email()}</a> </td>)
+                }
+                else children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)}
         }
         let id = data[i]["id"];
         let classNameString = 'row faker-row';

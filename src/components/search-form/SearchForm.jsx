@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './SearchForm.css'
 import ColorSelect from "../color-select/colorSelect";
 
@@ -44,6 +44,11 @@ export default function SearchForm(props){
                     Export CSV
                 </a>
             </button>
+            <button type="button" className="btn btn-info" onClick={()=>{
+                window.localStorage.clear();
+                window.location.reload();
+            }
+            }>Empty LocalStorage</button>
         </div>
 
 )

@@ -2,7 +2,19 @@ import faker from "faker";
 import React from "react";
 
 function tableData (rows){
-   let table =[];
+
+    let table =[];
+    for (let i=0;i< localStorage.length;i++){
+
+        if (localStorage.hasOwnProperty(i)){
+            table.push (JSON.parse(window.localStorage.getItem(i)))
+            //console.log (key);
+        }
+    }
+    if (table.length !==0) {
+        return table;
+    }
+
     for (let i=0;i<rows;i+=1){
         const dataInCells = {
             'id': i.toString(),
