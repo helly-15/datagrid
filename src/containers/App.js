@@ -54,17 +54,12 @@ function App(state) {
 const mapStateToProps = store => {
     let { dir, columnsForSort} = store.Sort;
     let {checked, search, color, virtualize, selection, deletedRows, hiddenColumns} = store.Filter;
-   let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data)) ))];
+   let data = [...filterDeletedRow(deletedRows,dropdownFilter (color, searchMatches(search,filterData(checked,store.Data))))];
     sortTableData(columnsForSort, data, dir);
     window.localStorage.clear();
     for (let i=0;i<data.length;i++){
         window.localStorage.setItem(`${i}`, JSON.stringify(data[i]));
     };
-
-
-
-
-
     return {
         data,
         search,

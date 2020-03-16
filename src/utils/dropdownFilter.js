@@ -1,5 +1,6 @@
 
 export default function dropDownFilter(chosenColors, data) {
+    if (!chosenColors){ return data};
     if (chosenColors.length===0){
         return data;
     }
@@ -16,5 +17,9 @@ export default function dropDownFilter(chosenColors, data) {
             }
         }
     }
-    return results;
+    if(results.length !==0){
+        return results;
+    }
+    else return data;
+
 }
