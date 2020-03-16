@@ -8,7 +8,6 @@ function tableData (rows){
 
         if (localStorage.hasOwnProperty(i)){
             table.push (JSON.parse(window.localStorage.getItem(i)))
-            //console.log (key);
         }
     }
     if (table.length !==0) {
@@ -18,13 +17,13 @@ function tableData (rows){
     for (let i=0;i<rows;i+=1){
         const dataInCells = {
             'id': i.toString(),
-            'seller': <img alt ='avatar' src ={faker.internet.avatar()}/>,
+            'seller': faker.internet.avatar().toString(),
             'name': faker.name.firstName(),
             'product name': faker.commerce.productName(),
             'price': faker.commerce.price().slice(0,-3) + '$',
             'color': faker.commerce.color(),
             'in stock':faker.random.boolean()?'yes':"no",
-            'email':<a href ="#" > {faker.internet.email()}</a>
+            'email':faker.internet.email().toString()
         };
 
         table.push (dataInCells)
