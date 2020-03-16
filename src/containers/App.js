@@ -43,6 +43,7 @@ function App(state) {
                     setSelection = {state.setSelection}
                     onHideColumn = {state.onHideColumn}
                     hiddenColumn = {state.hiddenColumns}
+                    realData = {state.realData}
                 />
                 <StickyHeader/>
             </main>
@@ -60,6 +61,7 @@ const mapStateToProps = store => {
     for (let i=0;i<data.length;i++){
         window.localStorage.setItem(`${i}`, JSON.stringify(data[i]));
     };
+    let realData = store.Data
     return {
         data,
         search,
@@ -70,7 +72,8 @@ const mapStateToProps = store => {
         virtualize,
         selection,
         deletedRows,
-        hiddenColumns
+        hiddenColumns,
+        realData
     }
 };
 

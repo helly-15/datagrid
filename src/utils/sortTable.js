@@ -1,4 +1,5 @@
 export function sortTableData(indexesOfColumn, tableData, dir) {
+    if (tableData.length ===0){return;}
    const namesOfColumns = Object.keys(tableData[0]);
 
    const keys = indexesOfColumn.map(index => namesOfColumns[index]);

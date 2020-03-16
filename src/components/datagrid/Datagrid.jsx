@@ -7,17 +7,18 @@ import RowVisibility from "../row-visibility/RowVisibility";
 
 const classesOfColumns =["col-sm-1", "col-sm-1", "col-sm-2","col-sm-2","col-sm-1","col-sm-2","col-sm-1","col-sm-2"];
 
-function tableKeys(data) {
-    return Object.keys(data[0]);
+function tableKeys(realData) {
+    return Object.keys(realData[0]);
 }
 
-function tableWithData (data, virtualize, selection, setSelection, hiddenColumn){
+function tableWithData (data, virtualize, selection, setSelection, hiddenColumn, realData){
     let tableRealData = data;
+    if (!tableRealData){ return <span> 'no data available'</span>}
     let table = [];
     for (let i=0;i<data.length;i+=1){
 
         let children =[];
-        let keys = tableKeys(data);
+        let keys = tableKeys(realData);
         for (let j=0; j < keys.length; j+=1){
             let key = keys[j];
             if (hiddenColumn.includes (j)){
@@ -81,14 +82,14 @@ function tableWithData (data, virtualize, selection, setSelection, hiddenColumn)
 }
 
 export default function Datagrid (props) {
-    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize, selection, setSelection, onHideColumn, hiddenColumn} = props;
+    let {dir, setDir, data, setColumnsForSort, columnsForSort, virtualize, selection, setSelection, onHideColumn, hiddenColumn, realData} = props;
     let toggled = [];
     return (
         <div className='table-responsive'>
             <table className="container-fluid table-wrapper table table-hover">
                 <thead >
                 <tr className="row header-row">
-                    {tableKeys(data).map((name, index) => (
+                    {tableKeys(realData).map((name, index) => (
                         hiddenColumn.includes(index)?<th className= 'hidden'></th>:
                         <th className={classesOfColumns[index]}
                             key={index + name}
@@ -140,7 +141,7 @@ export default function Datagrid (props) {
                 </thead>
                 <RowVisibility onHideColumn = {onHideColumn} hiddenColumn ={hiddenColumn} />
                 <tbody>
-                {tableWithData(data,virtualize, selection, setSelection, hiddenColumn)}
+                {tableWithData(data,virtualize, selection, setSelection, hiddenColumn, realData)}
                 </tbody>
             </table>
         </div>
