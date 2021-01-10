@@ -17,7 +17,7 @@ function tableData (rows){
     for (let i=0;i<rows;i+=1){
         const dataInCells = {
             'id': i.toString(),
-            'seller': faker.internet.avatar().toString(),
+            'seller': faker.company.companyName(),
             'name': faker.name.firstName(),
             'product name': faker.commerce.productName(),
             'price': faker.commerce.price().slice(0,-3) + '$',

@@ -25,10 +25,11 @@ function tableWithData (data, virtualize, selection, setSelection, hiddenColumn,
                 children.push (<td className='hidden' key ={i+j}> </td>)
             }
             else {
-                if (key ==='seller'){
-                    children.push (<td className={classesOfColumns[j]} key ={i+j}> <img alt ='avatar' src ={tableRealData[i][key]} /> </td>)
-                }
-                else if (key ==='email'){
+                // if (key ==='seller'){
+                //     children.push (<td className={classesOfColumns[j]} key ={i+j}> <img alt ='avatar' src ={tableRealData[i][key]} /> </td>)
+                // }
+                //else
+                    if (key ==='email'){
                     children.push (<td className={classesOfColumns[j]} key ={i+j}> <a href ="#" > {tableRealData[i][key]} </a> </td>)
                 }
                 else children.push (<td className={classesOfColumns[j]} key ={i+j}> {tableRealData[i][key]} </td>)}
