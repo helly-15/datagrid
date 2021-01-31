@@ -1,7 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
 import chroma from 'chroma-js'
-import dropDownFilter from "../../utils/dropdownFilter";
 
 const colorOptions = [
     { value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
@@ -70,20 +69,20 @@ const colourStyles = {
 
 export default class ColorSelect extends React.Component {
     state = {
-        selectedOption: null,
+        selectedOption: [],
     };
     handleChange = selectedOption => {
         this.setState(
             { selectedOption },
-            ()=> dropDownFilter(this.state.selectedOption),
+            ()=>this.props.onColorChange(selectedOption) ,
+
         );
     };
     render() {
         const { selectedOption } = this.state;
-        console.log (this.state);
         return (
             <Select
-                closeMenuOnSelect={false}
+                closeMenuOnSelect={true}
                 placeholder ={"Select color"}
                 isMulti
                 options={colorOptions}

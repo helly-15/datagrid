@@ -1,30 +1,25 @@
-export default function dropDownFilter(stateOfComponent) {
-    //let dropdown= document.getElementsByClassName("checkbox")[0];
-    let table = document.getElementsByClassName("table-wrapper")[0];
-    let tr = table.getElementsByTagName("tr");
 
-    if (stateOfComponent){
-        for (let i = 1; i < tr.length; i++) {
-            tr[i].style.display = "";
-        }
-        for (let i = 1; i < tr.length; i++) {
-            let td = tr[i].getElementsByTagName("td")[4];
-            let counterOfmatches =0;
-            stateOfComponent.map ((object)=>{
-                if (td.innerText===object.value) {
-                    //tr[i].style.display = "";
-                    counterOfmatches++;
-                }
-
-            });
-            if (counterOfmatches===0){
-                tr[i].style.display = "none";
+export default function dropDownFilter(chosenColors, data) {
+    if (!chosenColors){ return data};
+    if (chosenColors.length===0){
+        return data;
+    }
+    let results = [];
+    let colors =[];
+    for (let i=0; i<chosenColors.length; i++){
+        colors.push(chosenColors[i].value);
+    }
+    for(let i=0; i<data.length; i++) {
+        for(let j=0; j<colors.length;j++) {
+            if (data[i].color.toUpperCase() ===colors[j].toUpperCase()){
+                results.push (data[i]);
+                break;
             }
         }
     }
-    else {
-        for (let i = 1; i < tr.length; i++) {
-            tr[i].style.display = "";
-        }
+    if(results.length !==0){
+        return results;
     }
+    else return data;
+
 }
